@@ -156,4 +156,13 @@ function cleanupOldServerFiles(generator, javaDir, testDir, mainResourceDir, tes
         generator.removeFile(`${testDir}web/rest/ProfileInfoResourceIntTest.java`);
         generator.removeFile('gradle/mapstruct.gradle');
     }
+    if (generator.isJhipsterVersionLessThan('5.2.2')) {
+        generator.removeFile(`${javaDir}config/ElasticsearchConfiguration.java`);
+        generator.removeFile('gradle/liquibase.gradle');
+
+        if (generator.authenticationType === 'oauth2' && generator.applicationType === 'microservice') {
+            generator.removeFolder(`${constants.DOCKER_DIR}realm-config`);
+            generator.removeFile(`${constants.DOCKER_DIR}keycloak.yml`);
+        }
+    }
 }

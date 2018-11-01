@@ -10,6 +10,107 @@ const SERVER_TEST_RES_DIR = constants.SERVER_TEST_RES_DIR;
 const DOCKER_DIR = constants.DOCKER_DIR;
 
 const expectedFiles = {
+    entity: {
+        clientNg2: [
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo/foo.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo/foo-detail.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo/foo-update.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo/foo-delete-dialog.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo/foo.route.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo/foo.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo/foo-update.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo/foo-delete-dialog.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo/foo-detail.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo/foo.service.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/shared/model/foo.model.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/foo/foo-delete-dialog.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/foo/foo-detail.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/foo/foo-update.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/foo/foo.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/foo/foo.service.spec.ts`
+        ],
+        clientNg2WithSuffix: [
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo-management/foo-management.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo-management/foo-management-detail.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo-management/foo-management-update.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo-management/foo-management-delete-dialog.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo-management/foo-management.route.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo-management/foo-management.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo-management/foo-management-update.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo-management/foo-management-delete-dialog.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo-management/foo-management-detail.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/foo-management/foo-management.service.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/shared/model/foo-management.model.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/foo-management/foo-management-delete-dialog.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/foo-management/foo-management-detail.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/foo-management/foo-management-update.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/foo-management/foo-management.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/foo-management/foo-management.service.spec.ts`
+        ],
+        clientNg2WithRootFolder: [
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo/foo.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo/foo-detail.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo/foo-update.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo/foo-delete-dialog.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo/foo.route.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo/foo.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo/foo-update.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo/foo-delete-dialog.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo/foo-detail.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo/foo.service.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/shared/model/test-root/foo.model.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/test-root/foo/foo-delete-dialog.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/test-root/foo/foo-detail.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/test-root/foo/foo-update.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/test-root/foo/foo.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/test-root/foo/foo.service.spec.ts`
+        ],
+        clientNg2WithRootFolderAndSuffix: [
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo-management/foo-management.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo-management/foo-management-detail.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo-management/foo-management-update.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo-management/foo-management-delete-dialog.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo-management/foo-management.route.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo-management/foo-management.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo-management/foo-management-update.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo-management/foo-management-delete-dialog.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo-management/foo-management-detail.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/test-root/foo-management/foo-management.service.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/shared/model/test-root/foo-management.model.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/test-root/foo-management/foo-management-delete-dialog.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/test-root/foo-management/foo-management-detail.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/test-root/foo-management/foo-management-update.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/test-root/foo-management/foo-management.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/test-root/foo-management/foo-management.service.spec.ts`
+        ],
+        clientNg2GatewayMicroserviceEntity: [
+            `${CLIENT_MAIN_SRC_DIR}app/entities/sampleMicroservice/bar/bar.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/sampleMicroservice/bar/bar-detail.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/sampleMicroservice/bar/bar-update.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/sampleMicroservice/bar/bar-delete-dialog.component.html`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/sampleMicroservice/bar/bar.route.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/sampleMicroservice/bar/bar.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/sampleMicroservice/bar/bar-update.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/sampleMicroservice/bar/bar-delete-dialog.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/sampleMicroservice/bar/bar-detail.component.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/entities/sampleMicroservice/bar/bar.service.ts`,
+            `${CLIENT_MAIN_SRC_DIR}app/shared/model/sampleMicroservice/bar.model.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/sampleMicroservice/bar/bar-delete-dialog.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/sampleMicroservice/bar/bar-detail.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/sampleMicroservice/bar/bar-update.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/sampleMicroservice/bar/bar.component.spec.ts`,
+            `${CLIENT_TEST_SRC_DIR}spec/app/entities/sampleMicroservice/bar/bar.service.spec.ts`
+        ],
+        server: [
+            '.jhipster/Foo.json',
+            `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/domain/Foo.java`,
+            `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/repository/FooRepository.java`,
+            `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/web/rest/FooResource.java`,
+            // SERVER_MAIN_RES_DIR + 'config/liquibase/changelog/20160120213555_added_entity_Foo.xml',
+            `${SERVER_TEST_SRC_DIR}com/mycompany/myapp/web/rest/FooResourceIntTest.java`
+        ],
+        gatling: [`${TEST_DIR}gatling/user-files/simulations/FooGatlingTest.scala`]
+    },
 
     gradle: [
         'gradle.properties',
@@ -18,7 +119,6 @@ const expectedFiles = {
         'gradlew',
         'gradlew.bat',
         'gradle/docker.gradle',
-        'gradle/liquibase.gradle',
         'gradle/profile_dev.gradle',
         'gradle/profile_prod.gradle',
         'gradle/sonar.gradle',
@@ -26,18 +126,11 @@ const expectedFiles = {
         'gradle/wrapper/gradle-wrapper.properties'
     ],
 
-    maven: [
-        'pom.xml',
-        'mvnw',
-        'mvnw.cmd',
-        '.mvn/wrapper/maven-wrapper.jar',
-        '.mvn/wrapper/maven-wrapper.properties'
-    ],
+    maven: ['pom.xml', 'mvnw', 'mvnw.cmd', '.mvn/wrapper/maven-wrapper.jar', '.mvn/wrapper/maven-wrapper.properties'],
+
+    common: ['README.md', '.gitignore', '.gitattributes', '.editorconfig'],
 
     server: [
-        'README.md',
-        '.gitignore',
-        '.gitattributes',
         `${SERVER_MAIN_RES_DIR}banner.txt`,
         `${SERVER_MAIN_RES_DIR}.h2.server.properties`,
         `${SERVER_MAIN_RES_DIR}templates/error.html`,
@@ -125,22 +218,14 @@ const expectedFiles = {
         `${SERVER_TEST_SRC_DIR}com/mycompany/myapp/web/rest/TestUtil.java`,
         `${SERVER_TEST_SRC_DIR}com/mycompany/myapp/web/rest/UserResourceIntTest.java`,
         `${SERVER_TEST_RES_DIR}config/application.yml`,
-        `${SERVER_TEST_RES_DIR}logback.xml`,
-        '.editorconfig'
+        `${SERVER_TEST_RES_DIR}logback.xml`
     ],
 
-    infinispan: [
-        `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheFactoryConfiguration.java`
-    ],
+    infinispan: [`${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheFactoryConfiguration.java`],
 
-    memcached: [
-        `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheConfiguration.java`,
-        `${DOCKER_DIR}memcached.yml`
-    ],
+    memcached: [`${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/CacheConfiguration.java`, `${DOCKER_DIR}memcached.yml`],
 
-    gatling: [
-        `${TEST_DIR}gatling/conf/gatling.conf`
-    ],
+    gatling: [`${TEST_DIR}gatling/conf/gatling.conf`],
 
     i18nJson: [
         `${CLIENT_MAIN_SRC_DIR}i18n/en/activate.json`,
@@ -193,14 +278,16 @@ const expectedFiles = {
         `${CLIENT_TEST_SRC_DIR}spec/app/admin/user-management/user-management-detail.component.spec.ts`,
         `${CLIENT_TEST_SRC_DIR}spec/app/admin/user-management/user-management-update.component.spec.ts`,
         `${CLIENT_TEST_SRC_DIR}spec/app/admin/user-management/user-management.component.spec.ts`,
-        `${CLIENT_TEST_SRC_DIR}spec/app/core/user/user.service.spec.ts`,
+        `${CLIENT_TEST_SRC_DIR}spec/app/core/user/user.service.spec.ts`
     ],
 
     client: [
         'angular.json',
+        '.huskyrc',
         '.prettierignore',
         '.prettierrc',
         'package.json',
+        'postcss.config.js',
         'proxy.conf.json',
         'src/main/webapp/404.html',
         `${CLIENT_MAIN_SRC_DIR}app/account/account.module.ts`,
@@ -328,6 +415,7 @@ const expectedFiles = {
         `${CLIENT_MAIN_SRC_DIR}app/vendor.ts`,
         `${CLIENT_MAIN_SRC_DIR}content/css/documentation.css`,
         `${CLIENT_MAIN_SRC_DIR}content/css/global.css`,
+        `${CLIENT_MAIN_SRC_DIR}content/css/loading.css`,
         `${CLIENT_MAIN_SRC_DIR}content/css/vendor.css`,
         `${CLIENT_MAIN_SRC_DIR}content/images/hipster.png`,
         `${CLIENT_MAIN_SRC_DIR}content/images/hipster2x.png`,
@@ -436,18 +524,11 @@ const expectedFiles = {
         `${DOCKER_DIR}keycloak.yml`
     ],
 
-    messageBroker: [
-        `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/MessagingConfiguration.java`,
-        `${DOCKER_DIR}kafka.yml`
-    ],
+    messageBroker: [`${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/MessagingConfiguration.java`, `${DOCKER_DIR}kafka.yml`],
 
-    swaggerCodegen: [
-        `${SERVER_MAIN_RES_DIR}swagger/api.yml`,
-    ],
+    swaggerCodegen: [`${SERVER_MAIN_RES_DIR}swagger/api.yml`],
 
-    swaggerCodegenGradle: [
-        'gradle/swagger.gradle',
-    ],
+    swaggerCodegenGradle: ['gradle/swagger.gradle'],
 
     uaa: [
         `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/UaaConfiguration.java`,
@@ -468,6 +549,11 @@ const expectedFiles = {
         `${CLIENT_MAIN_SRC_DIR}app/admin/gateway/gateway-routes.service.ts`
     ],
 
+    feignConfig: [
+        `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/FeignConfiguration.java`,
+        `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/client/UserFeignClientInterceptor.java`
+    ],
+
     microservice: [
         `${SERVER_MAIN_RES_DIR}static/index.html`,
         `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/SecurityConfiguration.java`,
@@ -476,39 +562,19 @@ const expectedFiles = {
         'package.json'
     ],
 
-    microserviceGradle: [
-        'gradle/docker.gradle'
-    ],
+    microserviceGradle: ['gradle/docker.gradle'],
 
-    dockerServices: [
-        `${DOCKER_DIR}app.yml`,
-        `${DOCKER_DIR}Dockerfile`,
-        `${DOCKER_DIR}sonar.yml`
-    ],
+    dockerServices: [`${DOCKER_DIR}app.yml`, `${DOCKER_DIR}Dockerfile`, `${DOCKER_DIR}sonar.yml`],
 
-    mysql: [
-        `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/LiquibaseConfiguration.java`,
-        `${DOCKER_DIR}mysql.yml`
-    ],
+    mysql: [`${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/LiquibaseConfiguration.java`, `${DOCKER_DIR}mysql.yml`],
 
-    mariadb: [
-        `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/LiquibaseConfiguration.java`,
-        `${DOCKER_DIR}mariadb.yml`
-    ],
+    mariadb: [`${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/LiquibaseConfiguration.java`, `${DOCKER_DIR}mariadb.yml`],
 
-    mssql: [
-        `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/LiquibaseConfiguration.java`,
-        `${DOCKER_DIR}mssql.yml`
-    ],
+    mssql: [`${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/LiquibaseConfiguration.java`, `${DOCKER_DIR}mssql.yml`],
 
-    postgresql: [
-        `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/LiquibaseConfiguration.java`,
-        `${DOCKER_DIR}postgresql.yml`
-    ],
+    postgresql: [`${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/LiquibaseConfiguration.java`, `${DOCKER_DIR}postgresql.yml`],
 
-    hazelcast: [
-        `${DOCKER_DIR}hazelcast-management-center.yml`
-    ],
+    hazelcast: [`${DOCKER_DIR}hazelcast-management-center.yml`],
 
     mongodb: [
         `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/dbmigrations/package-info.java`,
@@ -553,7 +619,6 @@ const expectedFiles = {
     elasticsearch: [
         `${DOCKER_DIR}elasticsearch.yml`,
         `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/repository/search/UserSearchRepository.java`,
-        `${SERVER_MAIN_SRC_DIR}com/mycompany/myapp/config/ElasticsearchConfiguration.java`,
         `${SERVER_TEST_SRC_DIR}com/mycompany/myapp/repository/search/UserSearchRepositoryMockConfiguration.java`
     ],
 
@@ -571,11 +636,7 @@ const expectedFiles = {
         `${DOCKER_DIR}jhipster-registry.yml`
     ],
 
-    consul: [
-        `${DOCKER_DIR}central-server-config/application.yml`,
-        `${DOCKER_DIR}consul.yml`,
-        `${DOCKER_DIR}config/git2consul.json`
-    ]
+    consul: [`${DOCKER_DIR}central-server-config/application.yml`, `${DOCKER_DIR}consul.yml`, `${DOCKER_DIR}config/git2consul.json`]
 };
 
 module.exports = expectedFiles;

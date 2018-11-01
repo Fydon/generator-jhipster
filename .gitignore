@@ -13,3 +13,9 @@ test/temp/
 /.jhipster
 yarn-error.log
 *.sw?
+/test/templates/import-jdl/*.png
+.git
+.classpath
+.factorypath
+.project
+.settings

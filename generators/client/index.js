@@ -34,76 +34,16 @@ module.exports = class extends BaseGenerator {
         super(args, opts);
 
         this.configOptions = this.options.configOptions || {};
-
-        // This adds support for a `--protractor` flag
-        this.option('protractor', {
-            desc: 'Enable protractor tests',
+        // This adds support for a `--from-cli` flag
+        this.option('from-cli', {
+            desc: 'Indicates the command is run from JHipster CLI',
             type: Boolean,
             defaults: false
         });
-
-        // This adds support for a `--uaa-base-name` flag
-        this.option('uaa-base-name', {
-            desc: 'Provide the name of UAA server, when using --auth uaa',
-            type: String
-        });
-
-        // This adds support for a `--build` flag
-        this.option('build', {
-            desc: 'Provide build tool for the application',
-            type: String
-        });
-
-        // This adds support for a `--websocket` flag
-        this.option('websocket', {
-            desc: 'Provide websocket option for the application',
-            type: String
-        });
-
         // This adds support for a `--auth` flag
         this.option('auth', {
             desc: 'Provide authentication type for the application',
             type: String
-        });
-
-        // This adds support for a `--db` flag
-        this.option('db', {
-            desc: 'Provide DB name for the application',
-            type: String
-        });
-
-        // This adds support for a `--search-engine` flag
-        this.option('search-engine', {
-            desc: 'Provide development DB option for the application',
-            type: String
-        });
-
-        // This adds support for a `--cache-provider` flag
-        this.option('cache-provider', {
-            desc: 'Provide a cache provider option for the application',
-            type: String,
-            defaults: 'no'
-        });
-
-        // This adds support for a `--hb-cache` flag
-        this.option('hb-cache', {
-            desc: 'Provide hibernate cache option for the application',
-            type: Boolean,
-            default: false
-        });
-
-        // This adds support for a `--jhi-prefix` flag
-        this.option('jhi-prefix', {
-            desc: 'Add prefix before services, controllers and states name',
-            type: String,
-            defaults: 'jhi'
-        });
-
-        // This adds support for a `--skip-user-management` flag
-        this.option('skip-user-management', {
-            desc: 'Skip the user management module during app generation',
-            type: Boolean,
-            defaults: false
         });
 
         // This adds support for a `--skip-commit-hook` flag
@@ -113,16 +53,10 @@ module.exports = class extends BaseGenerator {
             defaults: false
         });
 
-        // This adds support for a `--npm` flag
-        this.option('npm', {
-            desc: 'Use npm instead of yarn',
-            type: Boolean,
-            defaults: false
-        });
-
         // This adds support for a `--experimental` flag which can be used to enable experimental features
         this.option('experimental', {
-            desc: 'Enable experimental features. Please note that these features may be unstable and may undergo breaking changes at any time',
+            desc:
+                'Enable experimental features. Please note that these features may be unstable and may undergo breaking changes at any time',
             type: Boolean,
             defaults: false
         });
@@ -131,15 +65,12 @@ module.exports = class extends BaseGenerator {
         const blueprint = this.options.blueprint || this.configOptions.blueprint || this.config.get('blueprint');
         // use global variable since getters dont have access to instance property
         if (!opts.fromBlueprint) {
-            useBlueprint = this.composeBlueprint(
-                blueprint,
-                'client',
-                {
-                    'skip-install': this.options['skip-install'],
-                    configOptions: this.configOptions,
-                    force: this.options.force
-                }
-            );
+            useBlueprint = this.composeBlueprint(blueprint, 'client', {
+                'skip-install': this.options['skip-install'],
+                'from-cli': this.options['from-cli'],
+                configOptions: this.configOptions,
+                force: this.options.force
+            });
         } else {
             useBlueprint = false;
         }
@@ -148,6 +79,16 @@ module.exports = class extends BaseGenerator {
     // Public API method used by the getter and also by Blueprints
     _initializing() {
         return {
+            validateFromCli() {
+                if (!this.options['from-cli']) {
+                    this.warning(
+                        `Deprecated: JHipster seems to be invoked using Yeoman command. Please use the JHipster CLI. Run ${chalk.red(
+                            'jhipster <command>'
+                        )} instead of ${chalk.red('yo jhipster:<command>')}`
+                    );
+                }
+            },
+
             displayLogo() {
                 if (this.logo) {
                     this.printJHipsterLogo();
@@ -169,7 +110,7 @@ module.exports = class extends BaseGenerator {
                     /* for backward compatibility */
                     this.clientFramework = 'angularX';
                 }
-                if (this.clientFramework === 'angular2') {
+                if (this.clientFramework === 'angular' || this.clientFramework === 'angular2') {
                     /* for backward compatibility */
                     this.clientFramework = 'angularX';
                 }
@@ -185,7 +126,10 @@ module.exports = class extends BaseGenerator {
                     this.baseName = baseName;
                 }
 
-                this.serviceDiscoveryType = configuration.get('serviceDiscoveryType') === 'no' ? false : (configuration.get('serviceDiscoveryType') || this.configOptions.serviceDiscoveryType);
+                this.serviceDiscoveryType =
+                    configuration.get('serviceDiscoveryType') === 'no'
+                        ? false
+                        : configuration.get('serviceDiscoveryType') || this.configOptions.serviceDiscoveryType;
                 if (this.serviceDiscoveryType === undefined) {
                     this.serviceDiscoveryType = false;
                 }
@@ -205,21 +149,31 @@ module.exports = class extends BaseGenerator {
 
                     this.existingProject = true;
                 }
+                this.useNpm = this.configOptions.useNpm = !this.options.yarn;
+                this.useYarn = !this.useNpm;
                 if (!this.clientPackageManager) {
-                    if (this.useYarn) {
-                        this.clientPackageManager = 'yarn';
-                    } else {
+                    if (this.useNpm) {
                         this.clientPackageManager = 'npm';
+                    } else {
+                        this.clientPackageManager = 'yarn';
                     }
                 }
             },
 
             validateSkipServer() {
                 if (this.skipServer && !(this.databaseType && this.devDatabaseType && this.prodDatabaseType && this.authenticationType)) {
-                    this.error(`When using skip-server flag, you must pass a database option and authentication type using ${chalk.yellow('--db')} and ${chalk.yellow('--auth')} flags`);
+                    this.error(
+                        `When using skip-server flag, you must pass a database option and authentication type using ${chalk.yellow(
+                            '--db'
+                        )} and ${chalk.yellow('--auth')} flags`
+                    );
                 }
                 if (this.skipServer && this.authenticationType === 'uaa' && !this.uaaBaseName) {
-                    this.error(`When using skip-server flag and UAA as authentication method, you must pass a UAA base name using ${chalk.yellow('--uaa-base-name')} flag`);
+                    this.error(
+                        `When using skip-server flag and UAA as authentication method, you must pass a UAA base name using ${chalk.yellow(
+                            '--uaa-base-name'
+                        )} flag`
+                    );
                 }
             }
         };
@@ -407,10 +361,10 @@ module.exports = class extends BaseGenerator {
         return {
             write() {
                 switch (this.clientFramework) {
-                case 'react':
-                    return writeReactFiles.call(this, useBlueprint);
-                default:
-                    return writeAngularFiles.call(this, useBlueprint);
+                    case 'react':
+                        return writeReactFiles.call(this, useBlueprint);
+                    default:
+                        return writeAngularFiles.call(this, useBlueprint);
                 }
             }
         };

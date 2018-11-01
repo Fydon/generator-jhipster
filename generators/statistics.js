@@ -1,3 +1,21 @@
+/**
+ * Copyright 2013-2018 the original author or authors from the JHipster project.
+ *
+ * This file is part of the JHipster project, see https://www.jhipster.tech/
+ * for more information.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 const uuid = require('uuid/v4');
 const Config = require('conf');
 const osLocale = require('os-locale');
@@ -20,7 +38,7 @@ class Statistics {
                 isLinked: false
             }
         });
-        this.jhipsterOnlineUrl = (process.env.JHIPSTER_ONLINE_URL || DEFAULT_JHIPSTER_ONLINE_URL);
+        this.jhipsterOnlineUrl = process.env.JHIPSTER_ONLINE_URL || DEFAULT_JHIPSTER_ONLINE_URL;
         this.statisticsAPIPath = `${this.jhipsterOnlineUrl}/api`;
         this.clientId = this.config.get('clientId');
         this.doNotAskCounter = this.config.get('doNotAskCounter');
@@ -63,16 +81,20 @@ class Statistics {
 
     postRequest(url, data, force = false) {
         if (!this.optOut || force) {
-            this.axiosClient.post(url, data).then(
-                () => {},
-                (error) => {
-                    if (this.axiosProxyClient) {
-                        this.axiosProxyClient.post(url, data)
-                            .then(() => {})
-                            .catch(() => {});
+            this.axiosClient
+                .post(url, data)
+                .then(
+                    () => {},
+                    error => {
+                        if (this.axiosProxyClient) {
+                            this.axiosProxyClient
+                                .post(url, data)
+                                .then(() => {})
+                                .catch(() => {});
+                        }
                     }
-                }
-            ).catch(() => {});
+                )
+                .catch(() => {});
         }
     }
 
@@ -104,7 +126,7 @@ class Statistics {
         }
         if (this.optOut) {
             this.doNotAskCounter++;
-            this.config.set('doNotAskCounter', this.doNotAskCounter % (DO_NOT_ASK_LIMIT));
+            this.config.set('doNotAskCounter', this.doNotAskCounter % DO_NOT_ASK_LIMIT);
         }
 
         return this.optOut === undefined || (this.optOut && this.doNotAskCounter >= DO_NOT_ASK_LIMIT);
@@ -128,20 +150,25 @@ class Statistics {
     }
 
     sendYoRc(yorc, isARegeneration, generatorVersion) {
-        this.postRequest('/s/entry', {
-            'generator-jhipster': yorc,
-            'generator-id': this.clientId,
-            'generator-version': generatorVersion,
-            'git-provider': 'local',
-            'node-version': process.version,
-            os: `${os.platform()}:${os.release()}`,
-            arch: os.arch(),
-            cpu: os.cpus()[0].model,
-            cores: os.cpus().length,
-            memory: os.totalmem(),
-            'user-language': osLocale.sync(),
-            isARegeneration
-        }, this.forceInsight);
+        if (this.noInsight) return;
+        this.postRequest(
+            '/s/entry',
+            {
+                'generator-jhipster': yorc,
+                'generator-id': this.clientId,
+                'generator-version': generatorVersion,
+                'git-provider': 'local',
+                'node-version': process.version,
+                os: `${os.platform()}:${os.release()}`,
+                arch: os.arch(),
+                cpu: os.cpus()[0].model,
+                cores: os.cpus().length,
+                memory: os.totalmem(),
+                'user-language': osLocale.sync(),
+                isARegeneration
+            },
+            this.forceInsight
+        );
 
         this.insight.trackWithEvent('generator', 'app');
         this.insight.track('app/applicationType', yorc.applicationType);
@@ -151,10 +178,9 @@ class Statistics {
     }
 
     sendSubGenEvent(source, type, event) {
+        if (this.noInsight) return;
         const strEvent = event === '' ? event : JSON.stringify(event);
-        this.postRequest(`/s/event/${this.clientId}`,
-            { source, type, event: strEvent },
-            this.forceInsight);
+        this.postRequest(`/s/event/${this.clientId}`, { source, type, event: strEvent }, this.forceInsight);
         this.insight.trackWithEvent(source, type);
         if (event) {
             this.sendInsightSubGenEvents(type, event);
@@ -174,8 +200,9 @@ class Statistics {
      * @param {any} eventObject events that you want to send
      */
     sendInsightSubGenEvents(prefix, eventObject) {
+        if (this.noInsight) return;
         if (typeof eventObject === 'object') {
-            Object.keys(eventObject).forEach((key) => {
+            Object.keys(eventObject).forEach(key => {
                 if (typeof eventObject[key] === 'object') {
                     this.sendInsightSubGenEvents(`${prefix}/${key}`, eventObject[key]);
                 } else if (eventObject[key]) {
@@ -188,14 +215,19 @@ class Statistics {
     }
 
     sendEntityStats(fields, relationships, pagination, dto, service, fluentMethods) {
-        this.postRequest(`/s/entity/${this.clientId}`, {
-            fields,
-            relationships,
-            pagination,
-            dto,
-            service,
-            fluentMethods
-        }, this.forceInsight);
+        if (this.noInsight) return;
+        this.postRequest(
+            `/s/entity/${this.clientId}`,
+            {
+                fields,
+                relationships,
+                pagination,
+                dto,
+                service,
+                fluentMethods
+            },
+            this.forceInsight
+        );
     }
 }
 

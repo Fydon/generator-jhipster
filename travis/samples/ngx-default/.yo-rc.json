@@ -12,14 +12,16 @@
     "devDatabaseType": "h2Disk",
     "prodDatabaseType": "mysql",
     "searchEngine": false,
-    "useSass": false,
+    "useSass": true,
     "buildTool": "maven",
     "enableTranslation": true,
     "nativeLanguage": "en",
     "languages": [
       "en",
+      "al",
       "ar-ly",
       "hy",
+      "bn",
       "by",
       "ca",
       "zh-cn",
@@ -66,7 +68,7 @@
     "travis": true,
     "messageBroker": false,
     "serviceDiscoveryType": false,
-    "clientPackageManager": "yarn",
+    "clientPackageManager": "npm",
     "clientFramework": "angularX"
   }
 }
