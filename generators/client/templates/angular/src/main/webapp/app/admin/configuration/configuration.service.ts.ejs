@@ -47,7 +47,7 @@ export class <%=jhiPrefixCapitalized%>ConfigurationService {
         );
     }
 
-    getConfigPropertiesObjects(res: Object) {
+    getConfigPropertiesObjects(res: object) {
         // This code is for Spring Boot 2
         if (res['contexts'] !== undefined) {
             for (const key in res['contexts']) {
