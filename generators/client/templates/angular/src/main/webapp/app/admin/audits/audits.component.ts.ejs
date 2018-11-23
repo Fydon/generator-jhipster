@@ -73,13 +73,10 @@ export class AuditsComponent implements OnInit, OnDestroy {
 
     previousMonth() {
         const dateFormat = 'yyyy-MM-dd';
-        let fromDate: Date = new Date();
-
-        if (fromDate.getMonth() === 0) {
-            fromDate = new Date(fromDate.getFullYear() - 1, 11, fromDate.getDate());
-        } else {
-            fromDate = new Date(fromDate.getFullYear(), fromDate.getMonth() - 1, fromDate.getDate());
-        }
+        const currentDate: Date = new Date();
+        const previousMonth: Date = currentDate.getMonth() === 0
+            ? new Date(currentDate.getFullYear() - 1, 11, currentDate.getDate())
+            : new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, currentDate.getDate());
 
         this.fromDate = this.datePipe.transform(fromDate, dateFormat);
     }
